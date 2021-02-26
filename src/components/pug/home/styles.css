@@ -1,0 +1,114 @@
+.home-container{
+    position:relative;
+    /* font-weight: 700; */
+    /* background-image: url('/bg.jpg'); */
+    /* background-image: url('../../../img/bg.jpg'); */
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../../img/bg.jpg');
+    height: 100%; 
+
+  /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-color: black; */
+    height:100vh;
+    color:#fff;
+}
+
+.home-wrapper{
+    z-index:1;
+    width:100%;
+    max-width:1100px;
+    margin-right:auto;
+    margin-left:auto;
+    padding:70px 0px 100px 0;
+    font-family: EmperaSoft;
+    justify-content:center;
+    text-align: center;
+}
+
+.home-wrapper h1{
+    font-size: 4rem;
+    margin-block-start: 0;
+    
+    background: -webkit-linear-gradient(#fff45a, #ff9100);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+}
+
+.home-wrapper h4{
+    margin-block-end: 0;
+    font-size: 2rem;
+    font-family: EmperaRegular;
+}
+
+.home-wrapper p{
+    font-size: 1.3rem;
+}
+
+.arrow {
+    border: solid;
+    border-color: grey;
+
+    /* border-image: linear-gradient(to right, red , yellow);     */
+    border-width: 0 0.5rem 0.5rem 0;
+    display: inline-block;
+    padding: 0.8rem;
+
+    background: -webkit-linear-gradient(#fff45a, #ffa632);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+}
+
+.borderActive{
+    border-color: #ffe15a;
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+.loginBanner{
+    margin:2rem 0;
+}
+.loginBanner p{
+    font-size: 1.2rem;
+    margin-block-end:1rem ;
+    /* margin-block-start: 1rem; */
+    
+    /* font-weight: 600; */
+}   
+
+.loginBanner a{
+    padding: 0.4rem 1.5rem;
+    font-size:1rem;
+    /* font-weight:600; */
+    color:#fff;
+    text-decoration:none;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+
+.btn-blue{
+    background: #8E2DE2;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+
+}
+
+.btn-red{
+    background: #cb2d3e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.btn-grey{
+    background: #536976;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #292E49, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+
+}
