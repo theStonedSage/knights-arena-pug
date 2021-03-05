@@ -21,6 +21,7 @@ const Home = () => {
 
     useEffect(()=>{
         if(user&&user.discord_id) setChance('riot');
+        if(user&&user.discord_id&&user.riot_id) setChance('next');
     },[user])
 
     return (
@@ -37,7 +38,7 @@ const Home = () => {
                     text="LOGIN WITH DISCORD"  
                     color='blue'
                     button={user&&user.discord_id?'LOGGEDIN':'LOGIN'}
-                    link="https://discord.com/api/oauth2/authorize?client_id=814169905368399902&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdiscord&response_type=code&scope=identify"
+                    link="https://discord.com/api/oauth2/authorize?client_id=814169905368399902&redirect_uri=https%3A%2F%2Fknightsarena.com%2Fdiscord&response_type=code&scope=identify%20email"
                 />
 
                 <i className={`arrow down ${chance==='riot'&&'borderActive'}`} />
@@ -49,6 +50,7 @@ const Home = () => {
                     text="LOGIN WITH RIOT" 
                     color='red'
                     button={user&&user.riot_id?'CONNECTED':'CONNECT'}
+                    link="https://auth.riotgames.com/authorize?client_id=knightsarena&redirect_uri=https://knightsarena.com/cb/rso&response_type=code&scope=openid+offline_access"
                 />
 
 

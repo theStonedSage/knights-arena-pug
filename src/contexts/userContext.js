@@ -17,22 +17,30 @@ const UserContextProvider = (props)=>{
     useEffect(()=>{
         // console.log(cookies);
         if(cookies.access_token&&cookies.refresh_token){
-            
-            Axios.get( `https://discordapp.com/api/users/@me`, {headers: {Authorization: `Bearer ${cookies.access_token}`}}).then(async res=>{
+           
+                Axios.get( `https://discordapp.com/api/users/@me`, {headers: {Authorization: `Bearer ${cookies.access_token}`}}).then(async res=>{
+
                 console.log('cookie enter');
                 console.log(res.data);
+
+                const p = await Axios.get(`http://localhost:7071/api/dbcheck?dId=${res.data.id}&&accesstoken=${cookies.access_token}`).catch((err)=>{
+                    console.log('err occured');
+                });
+                // console.log('db check exec',l);
+                
                 setUser({
                     data:true,
                     fetching:false,
                     discord_id:res.data.id,
                     riot_id:'',
-                    name:res.data.username,
-                    img:`https://cdn.discordapp.com/avatars/${res.data.id}/${res.data.avatar}.jpg`
                 }) 
-                
-                
-            })  
-            
+                 
+            }).catch(err=>{
+                //cookies are not correct so delete them
+                setUser({data:false,fetching:false});
+                removeCookie('access_token');
+                removeCookie('refresh_token');
+            }) 
         }
         else setUser({data:false,fetching:false});
         // console.log('user is set');
@@ -44,7 +52,7 @@ const UserContextProvider = (props)=>{
 
 
     return (
-        <UserProvider value = {{user,saveUser,setCookie,cookies,removeCookie}} >
+        <UserProvider value = {{user,saveUser,setCookie,cookies,removeCookie,setUser}} >
             {props.children}
         </UserProvider>
     )
