@@ -5,7 +5,7 @@ import DiscordAuth from './auth/DiscordAuth';
 import { UserContextProvider } from './contexts/userContext';
 import DiscordAuthRoute from './auth/DiscordAuthRoute';
 import RiotAuthRoute from './auth/RiotAuthRoute';
-import Loading from './components/pug/loading/Loading';
+import Loading from './components/pug/loading/ScreenLoading';
 
 function App() {
   return (

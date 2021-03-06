@@ -1,6 +1,9 @@
 import React,{useEffect,useContext} from 'react'
 import { useState } from 'react';
 import { UserContext } from '../../../contexts/userContext';
+// import Loading from '../loading/Loading';
+import Loader from 'react-loader-spinner';
+
 import './styles.css';
 
 const Connect = ({text,button,color,link,active})=>{
@@ -32,7 +35,15 @@ const Home = () => {
 
                 <p>TO PLAY IN OUR PUG TOURNAMNETS FOLLOW THE STEPS BELOW</p>
 
-
+                {user.fetching?(
+                    <Loader
+                        style={{margin:'5rem auto'}}
+                        type="Bars"
+                        color="#00BFFF"
+                        height={100}
+                        width={100}
+                    />
+                ):(<>
                 <Connect 
                     active={chance==='discord'}
                     text="LOGIN WITH DISCORD"  
@@ -52,7 +63,7 @@ const Home = () => {
                     button={user&&user.riot_id?'CONNECTED':'CONNECT'}
                     link="https://auth.riotgames.com/authorize?client_id=knightsarena&redirect_uri=https://knightsarena.com/cb/rso&response_type=code&scope=openid+offline_access"
                 />
-
+                </>)}
 
             </div>
         </div>

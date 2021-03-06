@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Redirect, Route } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../contexts/userContext';
-import Loading from '../components/pug/loading/Loading';
+import ScreenLoading from '../components/pug/loading/ScreenLoading';
 
 const getUrlParameter = (name) => {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -24,10 +24,10 @@ const DiscordAuthRoute = ({component:Component,...rest}) => {
     const code = getUrlParameter('code');
 
     useEffect(()=>{
-        if(cookies.access_token){
+        if(cookies.access_token&&user.discord_id){
             setIsAuthenticated(true);
         }
-    },[cookies])
+    },[cookies,user])
 
     useEffect(()=>{
         const params = new URLSearchParams()
@@ -46,9 +46,8 @@ const DiscordAuthRoute = ({component:Component,...rest}) => {
         if(code){
             axios.post('https://discord.com/api/v6/oauth2/token', params, config)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 if(res){
-                    console.log(res.data);
                     setCookiep(res.data,setCookie);
                     
                 }
@@ -64,7 +63,7 @@ const DiscordAuthRoute = ({component:Component,...rest}) => {
 
     if(isAuthenticated===null){
         //show loading screen
-        return <Loading />
+        return <ScreenLoading />
     }
 
     return (
