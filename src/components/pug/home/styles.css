@@ -113,6 +113,12 @@ background: linear-gradient(to bottom, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, 
 
 }
 
+.successDiv{
+    width:400px;
+    margin:-2rem auto;
+    padding-top:2rem;
+}
+
 @media (max-width:768px){
     .home-container{
         height: 100%;
@@ -120,6 +126,10 @@ background: linear-gradient(to bottom, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, 
 
     .home-wrapper{
         max-width: 300px;
+    }
+
+    .successDiv{
+        width: 300px;
     }
 
 }

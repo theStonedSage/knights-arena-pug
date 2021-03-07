@@ -23,17 +23,21 @@ const UserContextProvider = (props)=>{
                 console.log('cookie enter');
                 console.log(res.data);
 
-                const p = await Axios.get(`https://socialsdb.azurewebsites.net/api/dbcheck?dId=${res.data.id}&&accesstoken=${cookies.access_token}`).catch((err)=>{
+                await Axios.get(`https://socialsdb.azurewebsites.net/api/dbcheck?dId=${res.data.id}&&accesstoken=${cookies.access_token}`).catch((err)=>{
                     console.log('err occured');
                 });
                 
+                const p = await Axios.get(`https://socialsdb.azurewebsites.net/api/socialsdb?dId=${res.data.id}&&social=riot&&accesstoken=${cookies.access_token}`).catch(err=>{
+                        console.log('not authenticated');
+                });
+                // console.log(p);
                 setUser({
                     data:true,
                     fetching:false,
                     discord_id:res.data.id,
                     discord_username:res.data.username,
-                    riot_id:'',
-                    riot_username:''
+                    riot_id:p.data.items.connectionId?p.data.items.connectionId:'',
+                    // riot_username:''
                 }) 
                  
             }).catch(err=>{

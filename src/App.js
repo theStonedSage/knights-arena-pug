@@ -1,7 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router,Route, Switch} from 'react-router-dom'
 import Home from './components/pug/home/Home';
-import DiscordAuth from './auth/DiscordAuth';
 import { UserContextProvider } from './contexts/userContext';
 import DiscordAuthRoute from './auth/DiscordAuthRoute';
 import RiotAuthRoute from './auth/RiotAuthRoute';
