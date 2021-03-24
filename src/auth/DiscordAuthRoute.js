@@ -12,8 +12,9 @@ const getUrlParameter = (name) => {
 };
 
 const setCookiep = ({access_token,expires_in,refresh_token},setCookie)=>{
-    setCookie('access_token', access_token, { path: '/',maxAge:expires_in });
-    setCookie('refresh_token', refresh_token, { path: '/',maxAge:expires_in });
+    
+    if(access_token) setCookie('access_token', access_token, { path: '/',maxAge:expires_in });
+    if(refresh_token) setCookie('refresh_token', refresh_token, { path: '/',maxAge:expires_in });
     console.log('cookie set');
 }
 
@@ -24,39 +25,33 @@ const DiscordAuthRoute = ({component:Component,...rest}) => {
     const code = getUrlParameter('code');
 
     useEffect(()=>{
-        if(cookies.access_token&&user.discord_id){
-            setIsAuthenticated(true);
+        if(cookies.access_token&&user.discord_username){
+            if(user.dicord_id) setIsAuthenticated(true);
+            else {console.log('nene1'); setIsAuthenticated(false);}
         }
+        
     },[cookies,user])
 
     useEffect(()=>{
-        const params = new URLSearchParams()
-        params.append('client_id', '814169905368399902')
-        params.append('client_secret', 'SsScyEUB6TmJbW-NX8XPrDibbV6tnNl3')
-        params.append('grant_type', 'authorization_code')
-        params.append('code', `${code}`)
-        params.append('redirect_uri', 'https://knightsarena.com/discord')
-        params.append('scope', 'identify')
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }
         if(code){
-            axios.post('https://discord.com/api/v6/oauth2/token', params, config)
-            .then((res) => {
-                // console.log(res);
-                if(res){
+            axios.get(`http://localhost:7071/api/discord?code=${code}`,{timeout:4500})
+            .then((res)=>{
+                console.log(res.data)
+                if(res.data){
                     setCookiep(res.data,setCookie);
                     
                 }
-                else {
-                    console.log('cookie not set')
-                    setIsAuthenticated(false);
-                }
+                else{
+                    console.log('setting false');
+                    setIsAuthenticated(false)
+                }   
                 
-            }).catch((err) => {setIsAuthenticated(false); console.log(err);})
+            })
+            .catch(err=>{
+                console.log('nene2'); 
+                setIsAuthenticated(false);
+                console.log(err)
+            })
         }
         
     },[])

@@ -25,14 +25,13 @@ const RiotAuthRoute = ({component:Component,...rest}) => {
                 axios.get(`https://socialsdb.azurewebsites.net/api/riotAuth?code=${code}&&accesstoken=${cookies.access_token}`)
                 .then(async (res)=>{
                     console.log(res.data.message);
-            
-                    const p = await axios.get(`https://socialsdb.azurewebsites.net/api/socialsdb?dId=${user.discord_id}&&social=riot&&socialId=${res.data.message.puuid}&&accesstoken=${cookies.access_token}`).catch(err=>{
+                    
+                    const p = await axios.get(`http://localhost:7071/api/socialsdb?userId=${user.user_id}&&socialName=riot&&socialId=${res.data.message.puuid}`,{timeout:4500}).catch(err=>{
                         console.log('not authenticated');
                     });
-                    console.log(res.data.message);
-                    setUser(u=>({...u,riot_id:res.data.message.puuid,riot_username:res.data.message.gameName}));
+                    setUser(u=>({...u,riot_id:res.data.message.puuid}));
                     setIsAuthenticated(true);
-                    console.log(p);
+                    // console.log(p);
                     
                 })
                 .catch(err=>{
@@ -41,8 +40,11 @@ const RiotAuthRoute = ({component:Component,...rest}) => {
                     // console.log(err);
                 })
             }
-            
+            else{
+                setIsAuthenticated(true);
+            }
         }
+        
     },[user])
 
     if(isAuthenticated===null){

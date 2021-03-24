@@ -23,21 +23,31 @@ const UserContextProvider = (props)=>{
                 console.log('cookie enter');
                 console.log(res.data);
 
-                await Axios.get(`https://socialsdb.azurewebsites.net/api/dbcheck?dId=${res.data.id}&&accesstoken=${cookies.access_token}`).catch((err)=>{
+                const player = await Axios.get(`http://localhost:7071/api/dbcheck?email=${res.data.email}&&username=${res.data.username}`,{timeout:45000}).catch((err)=>{
                     console.log('err occured');
                 });
+
+                console.log(player.data.message.id);
+
+                //add discord social connection
+                const d = await Axios.get(`http://localhost:7071/api/socialsdb?userId=${player.data.message.id}&&socialName=discord&&socialId=${res.data.id}`,{timeout:45000}).catch(err=>{
+                    console.log('err occured');
+                })
                 
-                const p = await Axios.get(`https://socialsdb.azurewebsites.net/api/socialsdb?dId=${res.data.id}&&social=riot&&accesstoken=${cookies.access_token}`).catch(err=>{
+                console.log(d);
+                //check for riot social connection
+                const p = await Axios.get(`http://localhost:7071/api/socialsdb?userId=${player.data.message.id}&&socialName=riot&&get=true`,{timeout:4500}).catch(err=>{
                         console.log('not authenticated');
                 });
-                // console.log(p);
+
                 setUser({
                     data:true,
                     fetching:false,
-                    discord_id:res.data.id,
+                    user_id:player.data.message.id,
+                    // discord_id:d.data.message?d.data.message.id:'',
+                    discord_id:'hello',
                     discord_username:res.data.username,
-                    riot_id:p.data.items.connectionId?p.data.items.connectionId:'',
-                    // riot_username:''
+                    riot_id:p.data.message?p.data.message.id:'',
                 }) 
                  
             }).catch(err=>{
@@ -49,6 +59,7 @@ const UserContextProvider = (props)=>{
         }
         else setUser({data:false,fetching:false});
         // console.log('user is set');
+        
     },[cookies]);
 
     const saveUser = (e)=>{

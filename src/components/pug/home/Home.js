@@ -60,7 +60,7 @@ const Home = () => {
                         text="LOGIN WITH DISCORD"  
                         color='blue'
                         button={user&&user.discord_id?`@${user.discord_username} LOGGEDIN`:'LOGIN'}
-                        link="https://discord.com/api/oauth2/authorize?client_id=814169905368399902&redirect_uri=https%3A%2F%2Fknightsarena.com%2Fdiscord&response_type=code&scope=identify%20email"
+                        link="https://discord.com/api/oauth2/authorize?client_id=709594097060544603&redirect_uri=https%3A%2F%2Fknightsarena.com%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify%20email"
                     />
 
                     <i className={`arrow down ${chance==='riot'&&'borderActive'}`} />

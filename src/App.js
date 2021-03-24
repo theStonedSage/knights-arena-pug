@@ -13,8 +13,8 @@ function App() {
       
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/test" exact component={Loading} />
-          <DiscordAuthRoute path="/discord" exact component={Home} />
+          {/* <Route path="/test" exact component={Loading} /> */}
+          <DiscordAuthRoute path="/auth/discord/redirect" exact component={Home} />
           <RiotAuthRoute path="/cb/rso" exact component={Home}  />
         </Switch>
       
