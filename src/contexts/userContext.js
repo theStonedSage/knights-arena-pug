@@ -3,7 +3,8 @@ import React,{useEffect} from 'react';
 import { useCookies } from 'react-cookie';
 
 const UserContext = React.createContext();
-
+const origin = "https://socialsdb.azurewebsites.net";
+// const origin = "https://socialsdb.azurewebsites.net/api/socialsdb?";
 const UserProvider = UserContext.Provider;
 
 const UserContextProvider = (props)=>{
@@ -23,20 +24,20 @@ const UserContextProvider = (props)=>{
                 console.log('cookie enter');
                 console.log(res.data);
 
-                const player = await Axios.get(`http://localhost:7071/api/dbcheck?email=${res.data.email}&&username=${res.data.username}`,{timeout:45000}).catch((err)=>{
+                const player = await Axios.get(`${origin}/api/dbcheck?email=${res.data.email}&&username=${res.data.username}&&accesstoken=${cookies.access_token}`,{timeout:20000}).catch((err)=>{
                     console.log('err occured');
                 });
 
                 console.log(player.data.message.id);
 
                 //add discord social connection
-                const d = await Axios.get(`http://localhost:7071/api/socialsdb?userId=${player.data.message.id}&&socialName=discord&&socialId=${res.data.id}`,{timeout:45000}).catch(err=>{
+                const d = await Axios.get(`${origin}/api/socialsdb?userId=${player.data.message.id}&&socialName=discord&&socialId=${res.data.id}&&accesstoken=${cookies.access_token}`,{timeout:20000}).catch(err=>{
                     console.log('err occured');
                 })
                 
                 console.log(d);
                 //check for riot social connection
-                const p = await Axios.get(`http://localhost:7071/api/socialsdb?userId=${player.data.message.id}&&socialName=riot&&get=true`,{timeout:4500}).catch(err=>{
+                const p = await Axios.get(`${origin}/api/socialsdb?userId=${player.data.message.id}&&socialName=riot&&get=true&&accesstoken=${cookies.access_token}`,{timeout:20000}).catch(err=>{
                         console.log('not authenticated');
                 });
 
@@ -44,8 +45,8 @@ const UserContextProvider = (props)=>{
                     data:true,
                     fetching:false,
                     user_id:player.data.message.id,
-                    // discord_id:d.data.message?d.data.message.id:'',
-                    discord_id:'hello',
+                    discord_id:d.data.message?d.data.message.id:'',
+                    // discord_id:'hello',
                     discord_username:res.data.username,
                     riot_id:p.data.message?p.data.message.id:'',
                 }) 

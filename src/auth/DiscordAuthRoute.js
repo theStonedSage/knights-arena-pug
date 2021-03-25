@@ -4,6 +4,8 @@ import axios from 'axios';
 import { UserContext } from '../contexts/userContext';
 import ScreenLoading from '../components/pug/loading/ScreenLoading';
 
+const origin = "https://socialsdb.azurewebsites.net";
+
 const getUrlParameter = (name) => {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -34,7 +36,7 @@ const DiscordAuthRoute = ({component:Component,...rest}) => {
 
     useEffect(()=>{
         if(code){
-            axios.get(`http://localhost:7071/api/discord?code=${code}`,{timeout:4500})
+            axios.get(`${origin}/api/discord?code=${code}`,{timeout:2000})
             .then((res)=>{
                 console.log(res.data)
                 if(res.data){

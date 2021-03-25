@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Redirect, Route } from 'react-router-dom';
 import ScreenLoading from '../components/pug/loading/ScreenLoading';
 
+const origin = "https://socialsdb.azurewebsites.net";
+
 const getUrlParameter = (name) => {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -22,11 +24,11 @@ const RiotAuthRoute = ({component:Component,...rest}) => {
         if(user.data&&code){
 
             if(!user.riot_id){
-                axios.get(`https://socialsdb.azurewebsites.net/api/riotAuth?code=${code}&&accesstoken=${cookies.access_token}`)
+                axios.get(`${origin}/api/riotAuth?code=${code}&&accesstoken=${cookies.access_token}`)
                 .then(async (res)=>{
                     console.log(res.data.message);
                     
-                    const p = await axios.get(`http://localhost:7071/api/socialsdb?userId=${user.user_id}&&socialName=riot&&socialId=${res.data.message.puuid}`,{timeout:4500}).catch(err=>{
+                    const p = await axios.get(`${origin}/api/socialsdb?userId=${user.user_id}&&socialName=riot&&socialId=${res.data.message.puuid}&&accesstoken=${cookies.access_token}`,{timeout:20000}).catch(err=>{
                         console.log('not authenticated');
                     });
                     setUser(u=>({...u,riot_id:res.data.message.puuid}));
